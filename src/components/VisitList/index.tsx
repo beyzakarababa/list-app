@@ -1,4 +1,4 @@
-import { Table,Button, Popconfirm, Modal } from "antd";
+import { Table, Button, Modal } from "antd";
 import { IVisitList } from "./modal";
 import { FC, useState } from "react";
 import Column from "antd/es/table/Column";
@@ -13,20 +13,19 @@ const VisitList: FC<IVisitList> = ({
     const [open, setOpen] = useState(false);
     const [deletedId, setDeletedId] = useState<string>('');
     const showPopconfirm = (id:string) => {
-        setDeletedId(id)
-        setOpen(true);
-      };
+      setDeletedId(id)
+      setOpen(true);
+    };
     
     const handleOk = async () =>  {
-        const newVisitList = await deleteVisit(deletedId);
-        console.log(newVisitList)
-        setter(newVisitList);
-        setOpen(false);
-      };
+      const newVisitList = await deleteVisit(deletedId);
+      setter(newVisitList);
+      setOpen(false);
+    };
     
     const handleCancel = () => {
-        setOpen(false);
-      };
+      setOpen(false);
+    };
    
     return (
     <>
@@ -39,7 +38,7 @@ const VisitList: FC<IVisitList> = ({
             <Column title={"Ayrılış Saati"} dataIndex={"departureTime"} key={"departureTime"} render={(departureTime) => { return <>{dayjs(departureTime).format('HH:mm:ss')} </> }}></Column>
             <Column title={"İşlem"} dataIndex={'id'} key={"id"} render={(id) => {return (
            
-                <Button onClick={() => showPopconfirm(id)} className="delete-button">Sil</Button>
+              <Button onClick={() => showPopconfirm(id)} className="delete-button">Sil</Button>
                 
                 )
             }}></Column>

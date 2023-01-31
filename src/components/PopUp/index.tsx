@@ -1,6 +1,5 @@
-import { FC,useState } from "react";
-import { Modal,Input,Select,TimePicker,Button} from "antd";
-import type { Dayjs } from 'dayjs';
+import { FC } from "react";
+import { Modal,Button } from "antd";
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { IPopUp } from "./modal";
@@ -14,11 +13,6 @@ const PopUp: FC<IPopUp> = ({
     isOpen,
     children
 }) => {
-    const [value, setValue] = useState<Dayjs | null>(null);
-    
-    const onChange = (time: Dayjs) => {
-        setValue(time);
-    };
 
     return(
         <>
