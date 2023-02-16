@@ -7,12 +7,23 @@ import { IVisit } from './api/modals/IVisit';
 import dayjs from 'dayjs';
 import { addVisit, getVisits } from './api/service/visit';
 import VisitList from './components/VisitList';
+import il_ilce from './il-ilce.json'
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentVisit, setCurrentVisit] = useState<IVisit>({companyName:"", name: "", address: "", city: "Adana", arrivalTime: dayjs(), departureTime: dayjs()});
+  const [currentVisit, setCurrentVisit] = useState<IVisit>({companyName:"", name: "", address: "", city: undefined, arrivalTime: dayjs(), departureTime: dayjs()});
   const [visitList, setVisitList] = useState<IVisit[]>([]);
   
+  const ilceTransform = (ililce:any) => {
+    const cityOptions = [];
+    for (let i = 0; i < 81; i++) {
+       let il = ililce.data[i].il_adi
+       console.log(il);
+       cityOptions.push({ value: il, label: il });
+    }
+    console.log(cityOptions);
+    return cityOptions;
+  }
   const getInitialVisits = async () => {
   const visits = await getVisits();
   setVisitList(visits);
@@ -42,6 +53,9 @@ function App() {
   }
   useEffect(() => {
    getInitialVisits();
+   ilceTransform(il_ilce);
+   console.log(il_ilce);
+   
   },[]);
 
   return (
@@ -61,17 +75,11 @@ function App() {
         <div>
         <Select
         onChange={onHandleChangeSelect}
+        showSearch
         placeholder={'İl'}
         style={{ width: 120 }}
         value={currentVisit?.city}
-        options={[
-            { value: 'Adana', label: 'Adana' },
-            { value: 'Ankara', label: 'Ankara' },
-            { value: 'Antalya', label: 'Antalya' },
-            { value: 'Bursa', label: 'Bursa' },
-            { value: 'İstanbul', label: 'İstanbul' },
-            { value: 'İzmir', label: 'Izmir' },
-        ]}>
+        options={ilceTransform(il_ilce)}>
         </Select>&nbsp;&nbsp;
         <TimePicker onChange={(value) =>onHandleChangeTime(value,"arrivalTime")} placeholder="Varış Saati" value={currentVisit?.arrivalTime} />&nbsp;&nbsp;
         <TimePicker onChange={(value) =>onHandleChangeTime(value,"departureTime")} placeholder="Ayrılış Saati" value={currentVisit?.departureTime} />&nbsp;

@@ -39,9 +39,9 @@ const VisitList: FC<IVisitList> = ({
             <Column title={"İşlem"} dataIndex={'id'} key={"id"} render={(id) => {return (
            
               <Button onClick={() => showPopconfirm(id)} className="delete-button">Sil</Button>
-                
-                )
-            }}></Column>
+             
+             )
+         }}></Column>
         </Table>
         <Modal
         title="Kaydı sil"

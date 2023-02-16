@@ -5,7 +5,7 @@ export interface IVisit {
     companyName: string;
     name: string;
     address: string;
-    city: string;
+    city?: string;
     arrivalTime: Dayjs;
     departureTime: Dayjs;
 }
